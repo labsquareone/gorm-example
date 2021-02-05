@@ -97,8 +97,27 @@ func main() {
 
 // User model
 type User struct {
-	ID        uint
-	Username  string
-	FirstName string
-	LastName  string
+	gorm.Model        // id, updated_at, created_at, deleted_at
+	Username   string `gorm:"type:varchar(15)"` // cutomize field type and size
+	FirstName  string `gorm:"size:100"`
+	LastName   string
+	Count      int  `gorm:"autoIncrement:true"` // auto increment
+	TempField  bool `gorm:"-"`                  // transient field
 }
+
+// type User struct {
+//   ID           uint
+//   Name         string
+//   Email        *string
+//   Age          uint8
+//   Birthday     *time.Time
+//   MemberNumber sql.NullString
+//   ActivedAt    sql.NullTime
+//   CreatedAt    time.Time
+//   UpdatedAt    time.Time
+// }
+
+// defining table(different name)
+// func (u User) TableName() string {
+// 	return "stakeholders"
+// }
